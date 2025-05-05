@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <button id="new-chat-btn" class="sidebar-button">
+            <i class="fas fa-plus"></i> Новый чат
+        </button>
+        <div class="chat-list" id="chat-list">
+            {% for chat in chats %}
+            <div class="chat-item" data-chat-id="{{ chat.chat_id }}">
+                <i class="fas fa-comment"></i>
+                <span class="chat-title">{{ chat.title }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="chat-container">
+            <h1 class="chat-title" id="current-chat-title">Анализатор эмоций</h1>
+
+            <div id="chat-box" class="chat-box">
+                <div class="message bot-message">
+                    Привет! Отправьте текст или голосовое сообщение для анализа эмоций.
+                </div>
+            </div>
+
+            <div class="audio-controls">
+                <button id="record-btn" class="audio-btn">
+                    <i class="fas fa-microphone"></i> Запись
+                </button>
+                <button id="stop-btn" class="audio-btn" disabled>
+                    <i class="fas fa-stop"></i> Стоп
+                </button>
+            </div>
+
+            <div class="input-container">
+                <div class="input-group">
+                    <input type="text" id="user-input" class="chat-input" placeholder="Введите сообщение...">
+                    <button id="send-btn" class="send-btn">Отправить</button>
+                </div>
+            </div>
+
+            <div class="upload-container">
+                <label for="audio-file" class="upload-label">Или загрузите аудиофайл:</label>
+                <div class="file-upload">
+                    <label for="audio-file" class="custom-file-upload">
+                        <i class="fas fa-file-audio"></i> Выбрать файл
+                    </label>
+                    <input type="file" id="audio-file" accept="audio/*">
+                    <button id="upload-btn" class="audio-btn">
+                        <i class="fas fa-upload"></i> Загрузить
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
